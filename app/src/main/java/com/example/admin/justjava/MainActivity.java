@@ -25,18 +25,23 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
         boolean hasWhippedCream = ((CheckBox) findViewById(R.id.whipped_cream_checkbox)).isChecked();
+        boolean hasChocolate = ((CheckBox) findViewById(R.id.chocolate_checkbox)).isChecked();
 
-        String priceMessage = createOrderSummaryMessage(hasWhippedCream);
+        String priceMessage = createOrderSummaryMessage(hasWhippedCream, hasChocolate);
         displayMessage(priceMessage);
     }
 
     /**
      * Calculates the price of the order.
+     *
      * @param hasWhipperCream is true when user want to add whipped cream to the order
+     * @param hasChocolate    is true when user want to add chocolate to the order
      */
-    private int calculatePrice(boolean hasWhipperCream) {
+    private int calculatePrice(boolean hasWhipperCream, boolean hasChocolate) {
         int base = 5;
-        if (hasWhipperCream == true)
+        if (hasWhipperCream)
+            base += 1;
+        if (hasChocolate)
             base += 1;
         return quantity * base;
     }
@@ -65,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This method create the message, that will be displayed on the screen when order button is clicked.
-     * calculatePrice(hasWhippedCream) method called for order price
+     * calculatePrice(hasWhippedCream, hasChocolate) method called for order price
      */
 
-    private String createOrderSummaryMessage(boolean hasWhippedCream) {
-        String priceMessage = "Add whipped cream: " + hasWhippedCream + "\nThe price is " + calculatePrice(hasWhippedCream) + ", man!";
+    private String createOrderSummaryMessage(boolean hasWhippedCream, boolean hasChocolate) {
+        String priceMessage = "Add whipped cream: " + hasWhippedCream + "\nAdd chocolate:" + hasChocolate + "\nThe price is " + calculatePrice(hasWhippedCream, hasChocolate) + ", man!";
         return priceMessage;
     }
 
